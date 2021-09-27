@@ -1,0 +1,27 @@
+<idea-plugin>
+    <id>com.stenalpjolly.tfcv</id>
+    <name>Terraform Code Visualizer</name>
+
+    <description><![CDATA[
+    Terraform Code Visualizer Plugin<br>
+    Provides visual representation for terraform code.
+    ]]></description>
+    <vendor email="stenalpjolyl@gmail.com"></vendor>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileEditorProvider id="Terraform Code Visualizer" implementation="com.stenalpjolly.tfcv.editor.VisualizerProvider"/>
+        <fileType name="Terrform" extensions="tf;" implementationClass="com.stenalpjolly.tfcv.filetype.TerraformFileProvider"/>
+    </extensions>
+
+    <projectListeners>
+        <listener class="com.stenalpjolly.tfcv.listener.EditorTabListenerManager" topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+    </projectListeners>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
