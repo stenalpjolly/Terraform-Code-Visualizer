@@ -20,7 +20,9 @@ public class EntityData {
     }
 
     public void add(EntityData children) {
-        this.children.add(children);
+        if (children != null) {
+            this.children.add(children);
+        }
     }
 
     public void setChildren(Set<String> children) {

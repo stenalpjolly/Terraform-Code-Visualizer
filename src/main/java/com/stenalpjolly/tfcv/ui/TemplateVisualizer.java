@@ -1,5 +1,6 @@
 package com.stenalpjolly.tfcv.ui;
 
+import com.bertramlabs.plugins.hcl4j.RuntimeSymbols.Variable;
 import com.github.jknack.handlebars.EscapingStrategy;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
@@ -15,19 +16,28 @@ import javax.swing.JComponent;
 public class TemplateVisualizer {
   private JBCefBrowser browser;
 
+  private static String[] resourceNames = new String[]{
+      "resource",
+      "variable",
+      "module",
+      "locals"
+  };
+
   public TemplateVisualizer(Map<String, Object> parsedTfCode) throws IOException {
     Handlebars handlebars = new Handlebars().with(EscapingStrategy.NOOP);
     Template template = handlebars.compile("templates/main");
     EntityData entityData = new EntityData("tf");
 
-    extractEntity(parsedTfCode, entityData, "resource");
-    extractEntity(parsedTfCode, entityData, "variable");
-    extractEntity(parsedTfCode, entityData, "module");
-    extractEntity(parsedTfCode, entityData, "locals");
+    for (String resourceName : resourceNames) {
+      EntityData data = extractEntity(parsedTfCode, resourceName, 1);
+      entityData.add(data);
+    }
 
     HashMap<String, EntityData> hashMap = new HashMap<>();
 
-    if (entityData.getDataCount() == 1) {
+    if (entityData.getDataCount() < 1) {
+      throw new IOException("No Supported entity found");
+    } else if (entityData.getDataCount() == 1) {
       EntityData data = entityData.getChild();
       hashMap.put("data", data);
     } else {
@@ -45,21 +55,29 @@ public class TemplateVisualizer {
 
   }
 
-  private void extractEntity(Map<String, Object> parsedTfCode, EntityData entityData,
-      String entityResource) {
-    Map<String, Object>  entityMap = (Map<String, Object>) parsedTfCode.get(entityResource);
-    if (entityMap != null) {
+  private EntityData extractEntity(Map<String, Object> parsedTfCode, String entityResource, int depth) {
+    if (parsedTfCode == null || depth > 2) {
+      return null;
+    }
+    Object resourceObj = parsedTfCode.get(entityResource);
+    if (resourceObj instanceof String) {
+      return new EntityData(resourceObj.toString());
+    } else if (resourceObj instanceof Variable) {
+      return new EntityData(((Variable) resourceObj).getName());
+    } else if (resourceObj instanceof Map) {
+      Map<String, Object>  entityMap = (Map<String, Object>) resourceObj;
       EntityData data = new EntityData(entityResource);
       for (String resourceKey : entityMap.keySet()) {
-        EntityData resourceData = new EntityData(resourceKey);
-        Map<String, Object> stringObjectMap = (Map<String, Object>) entityMap.get(resourceKey);
-        if (stringObjectMap != null) {
-          resourceData.setChildren(stringObjectMap.keySet());
+        EntityData resourceData = extractEntity(entityMap, resourceKey, depth + 1);
+        if (resourceData == null) {
+          data.add(new EntityData(resourceKey));
+        } else {
+          data.add(resourceData);
         }
-        data.add(resourceData);
       }
-      entityData.add(data);
+      return data;
     }
+    return null;
   }
 
   public JComponent getRenderedComponent() {
