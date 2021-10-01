@@ -24,20 +24,25 @@
     text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
   }
 
-  .flex-container {
-    height: 90%;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #app {
+  .svg-container {
+    display: inline-block;
+    position: relative;
     width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+    overflow: hidden;
+  }
+  .svg-content {
+    display: inline-block;
+    max-height: 1080px;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   svg {
-    min-height: 200px;
+    width: 100%;
   }
 
   label {
@@ -45,55 +50,19 @@
   }
 
 </style>
-<div class="flex-container">
-  <div id="app"></div>
+<div id="app" class="svg-container">
 </div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
-  const data = {
-    "name": "Content",
-    "children": [
-      {
-        "name": "DirtySprite", "children": [
-          {"name": "LineSprite"},
-          {"name": "RectSprite"},
-          {"name": "TextSprite"},
-          {"name": "DirtySprite"},
-          {"name": "DirtySprite"},
-          {"name": "DirtySprite"},
-          {"name": "DirtySprite"},
-          {"name": "DirtySprite"},
-          {"name": "DirtySprite"},
-          {"name": "DirtySprite"},
-          {"name": "LineSprite"},
-          {"name": "RectSprite"},
-          {"name": "TextSprite"}
-        ]
-      },
-      {"name": "RectSprite"},
-      {"name": "TextSprite"},
-      {
-        "name": "DirtySprite", "children": [
-          {"name": "DirtySprite"},
-          {"name": "LineSprite"},
-          {"name": "RectSprite"},
-          {"name": "RectSprite"},
-          {"name": "RectSprite"},
-          {"name": "RectSprite"},
-          {"name": "RectSprite"},
-          {"name": "TextSprite"}
-        ]
-      },
-    ]
-  }
+  const data = {"name":"File Content","children":[{"name":"resources","children":[{"name":"google_compute_disk","children":[]},{"name":"google_compute_attached_disk","children":[]},{"name":"google_compute_disk","children":[{"name":"gucnwd-ont-d04-disk-f","children":[]},{"name":"gucnwd-ont-d05-disk-t","children":[]},{"name":"gucnwd-ont-d06-disk-f","children":[]},{"name":"gucnwd-ont-d04-disk-l","children":[]},{"name":"gucnwd-ont-d05-disk-l","children":[]},{"name":"gucnwd-ont-d03-disk-d","children":[]},{"name":"gucnwd-ont-d01-disk-f","children":[]},{"name":"gucnwd-ont-d01-disk-t","children":[]},{"name":"gucnwd-ont-d06-disk-l","children":[]},{"name":"gucnwd-ont-d06-disk-d","children":[]},{"name":"gucnwd-ont-d05-disk-d","children":[]},{"name":"gucnwd-ont-d03-disk-t","children":[]},{"name":"gucnwd-ont-d04-disk-t","children":[]},{"name":"gucnwd-ont-d02-disk-f","children":[]},{"name":"gucnwd-ont-d06-disk-t","children":[]},{"name":"gucnwd-ont-d04-disk-d","children":[]},{"name":"gucnwd-ont-d05-disk-f","children":[]},{"name":"gucnwd-ont-d01-disk-d","children":[]},{"name":"gucnwq-mon-d01-disk-d","children":[]},{"name":"gucnwd-ont-d02-disk-d","children":[]},{"name":"gucnwd-ont-d03-disk-l","children":[]},{"name":"gucnwd-ont-d03-disk-f","children":[]},{"name":"gucnwd-ont-d02-disk-t","children":[]},{"name":"gucnwd-ont-d01-disk-l","children":[]},{"name":"gucnwd-ont-d02-disk-l","children":[]}]},{"name":"google_compute_attached_disk","children":[{"name":"attached_gucnwd-ont-d03_disk4","children":[]},{"name":"attached_gucnwd-ont-d04_disk2","children":[]},{"name":"attached_gucnwd-ont-d06_disk1","children":[]},{"name":"attached_gucnwd-ont-d04_disk4","children":[]},{"name":"attached_gucnwd-ont-d03_disk1","children":[]},{"name":"attached_gucnwd-ont-d05_disk4","children":[]},{"name":"attached_gucnwd-ont-d04_disk1","children":[]},{"name":"attached_gucnwd-ont-d02_disk3","children":[]},{"name":"attached_gucnwd-ont-d03_disk2","children":[]},{"name":"attached_gucnwd-ont-d03_disk3","children":[]},{"name":"attached_gucnwd-ont-d05_disk1","children":[]},{"name":"attached_gucnwd-ont-d06_disk4","children":[]},{"name":"attached_gucnwd-ont-d01_disk2","children":[]},{"name":"attached_gucnwd-ont-d04_disk3","children":[]},{"name":"attached_gucnwd-ont-d06_disk2","children":[]},{"name":"attached_gucnwd-ont-d05_disk2","children":[]},{"name":"attached_gucnwd-ont-d02_disk1","children":[]},{"name":"attached_gucnwd-ont-d02_disk4","children":[]},{"name":"attached_gucnwd-ont-d01_disk3","children":[]},{"name":"attached_gucnwd-ont-d05_disk3","children":[]},{"name":"attached_gucnwd-ont-d06_disk3","children":[]},{"name":"attached_gucnwd-ont-d01_disk4","children":[]},{"name":"attached_gucnwd-ont-d01_disk1","children":[]},{"name":"attached_gucnwq-mon-d01_disk1","children":[]},{"name":"attached_gucnwd-ont-d02_disk2","children":[]}]},{"name":"google_compute_instance","children":[]},{"name":"google_compute_instance","children":[{"name":"gucnwd-ont-d05","children":[]},{"name":"gucnwd-ont-d02","children":[]},{"name":"gucnwd-ont-d01","children":[]},{"name":"gucnwd-ont-d06","children":[]},{"name":"gucnwq-mon-d01","children":[]},{"name":"gucnwd-ont-d03","children":[]},{"name":"gucnwd-ont-d04","children":[]}]}]}]}
 
-  const margin = {top: 10, right: 160, bottom: 10, left: 100};
+  const margin = {top: 10, right: 160, bottom: 10, left: 20};
   const width = d3.width || 960;
   const root = d3.hierarchy(data);
-  const dx = 30;
-  const dy = width / 5;
+  const dx = 25;
+  const dy = width / 3;
   const tree = d3.tree().nodeSize([dx, dy]);
   const diagonal = d3
       .linkHorizontal()
@@ -113,6 +82,7 @@
   const svg = d3
       .create("svg")
       .attr("viewBox", [-margin.left, -margin.top, width, dx])
+      .classed("svg-content", true)
       .style("font", "12px monospace")
       .style("user-select", "none");
 
@@ -157,7 +127,7 @@
     const transition = svg
         .transition()
         .duration(duration)
-        .attr("viewBox", [-margin.left, left.x - margin.top, width, height + 20])
+        .attr("viewBox", [-margin.left, left.x - margin.top, width, height * 1.2])
         .tween(
             "resize",
             window.ResizeObserver ? null : () => () => svg.dispatch("toggle")

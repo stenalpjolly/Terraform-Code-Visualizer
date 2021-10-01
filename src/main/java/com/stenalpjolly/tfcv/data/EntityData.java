@@ -35,4 +35,15 @@ public class EntityData {
         Gson gson = new GsonBuilder().create();
         return gson.toJson(this).replaceAll("\"","\\\"");
     }
+
+    public int getDataCount() {
+        return children.size();
+    }
+
+    public EntityData getChild(){
+        for (EntityData child : children) {
+            return child;
+        }
+        return null;
+    }
 }
