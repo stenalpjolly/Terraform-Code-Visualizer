@@ -55,8 +55,8 @@ public class TemplateVisualizer {
         Map<String, Object> stringObjectMap = (Map<String, Object>) entityMap.get(resourceKey);
         if (stringObjectMap != null) {
           resourceData.setChildren(stringObjectMap.keySet());
-          data.add(resourceData);
         }
+        data.add(resourceData);
       }
       entityData.add(data);
     }
