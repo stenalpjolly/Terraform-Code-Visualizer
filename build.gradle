@@ -12,6 +12,9 @@ repositories {
 
 dependencies {
     implementation 'com.bertramlabs.plugins:hcl4j:0.3.5'
+    implementation 'com.github.jknack:handlebars:4.2.0'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.32'
+    implementation 'com.google.code.gson:gson:2.8.8'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
