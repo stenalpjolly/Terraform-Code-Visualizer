@@ -11,12 +11,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import javax.swing.JComponent;
 
 public class TemplateVisualizer {
-  private JBCefBrowser browser;
 
-  private static String[] resourceNames = new String[]{
+  private final JBCefBrowser browser;
+  private static final String[] resourceNames = new String[]{
       "resource",
       "variable",
       "module",
@@ -69,11 +70,7 @@ public class TemplateVisualizer {
       EntityData data = new EntityData(entityResource);
       for (String resourceKey : entityMap.keySet()) {
         EntityData resourceData = extractEntity(entityMap, resourceKey, depth + 1);
-        if (resourceData == null) {
-          data.add(new EntityData(resourceKey));
-        } else {
-          data.add(resourceData);
-        }
+        data.add(Objects.requireNonNullElseGet(resourceData, () -> new EntityData(resourceKey)));
       }
       return data;
     }
