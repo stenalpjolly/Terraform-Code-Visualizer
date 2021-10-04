@@ -58,7 +58,7 @@
   let dx = 30;
   let tree = d3.tree().nodeSize([dx, dy]);
   let diagonal = d3.linkHorizontal()
-      .x(d => d.y+ 10)
+      .x(d => d.y+ 30)
       .y(d => d.x+ 10);
 
   let chart = () => {
@@ -80,6 +80,7 @@
         .style("user-select", "none");
 
     const gLink = svg.append("g")
+        .attr("id", "links")
         .attr("fill", "none")
         .attr("stroke", "#555")
         .attr("stroke-opacity", 0.4)
@@ -132,7 +133,7 @@
       nodeEnter.append("rect")
           .attr("width", (d) => d.data.name.length * 5 + 25)
           .attr("height", 20)
-          .attr("fill", (d) => (d._children ? "#61d274" : "#efefef"))
+          .attr("fill", (d) => (d._children ? "rgba(97,210,116,0.9)" : "#efefef"))
           .attr("stroke-width", 10);
 
       nodeEnter.append("text")

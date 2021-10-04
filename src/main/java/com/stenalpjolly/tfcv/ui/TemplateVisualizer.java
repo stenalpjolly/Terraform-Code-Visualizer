@@ -56,7 +56,7 @@ public class TemplateVisualizer {
   }
 
   private EntityData extractEntity(Map<String, Object> parsedTfCode, String entityResource, int depth) {
-    if (parsedTfCode == null || depth > 2) {
+    if (parsedTfCode == null || depth > 3) {
       return null;
     }
     Object resourceObj = parsedTfCode.get(entityResource);
