@@ -3,8 +3,16 @@
     <name>Terraform Code Visualizer</name>
 
     <description><![CDATA[
-    Terraform Code Visualizer Plugin<br>
-    Provides visual representation for terraform code.
+    <p>Terraform Code Visualizer Plugin</p>
+    </br>
+    Provides visual representation for terraform code. Automatically detects the code and create an editor part with the tree graph
+
+    <p>Features:</p>
+    <ul>
+        <li>- Automatically detects *.tf file with terraform code</li>
+        <li>- Minimal parsing supported</li>
+        <li>- Interactive Tree graph</li>
+    </ul>
     ]]></description>
     <vendor email="stenalpjolyl@gmail.com"></vendor>
 
