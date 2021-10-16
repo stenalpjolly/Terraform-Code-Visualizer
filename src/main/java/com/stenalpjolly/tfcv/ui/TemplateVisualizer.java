@@ -21,6 +21,8 @@ public class TemplateVisualizer {
       "resource",
       "variable",
       "module",
+      "data",
+      "output",
       "locals"
   };
 

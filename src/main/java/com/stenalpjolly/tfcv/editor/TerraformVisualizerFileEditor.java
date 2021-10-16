@@ -19,14 +19,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class TerraformVisualizerFileEditor implements FileEditor {
 
-  private final JComponent component;
-  private VirtualFile virtualFile;
+  private JComponent component;
+  private final VirtualFile virtualFile;
 
   public TerraformVisualizerFileEditor(Project project, VirtualFile file) {
     this.virtualFile = file;
     Document document = FileDocumentManager.getInstance().getDocument(file);
-    Aggregator aggregator = new Aggregator(document.getText());
-    this.component = aggregator.getRenderedComponent();
+    if (document != null) {
+      Aggregator aggregator = new Aggregator(document.getText());
+      this.component = aggregator.getRenderedComponent();
+    }
   }
 
   @Override
